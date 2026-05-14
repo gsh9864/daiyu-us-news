@@ -1,0 +1,71 @@
+site_name: 大又的美股新聞秘書
+site_description: 每日盤前 + 每週摘要 美股新聞
+site_url: https://gsh9864.github.io/daiyu-us-news/
+repo_url: https://github.com/gsh9864/daiyu-us-news
+repo_name: gsh9864/daiyu-us-news
+edit_uri: ""
+
+theme:
+  name: material
+  language: zh-TW
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - toc.follow
+    - header.autohide
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切換到深色模式
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切換到淺色模式
+  font:
+    text: Noto Sans TC
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang:
+        - en
+        - ja
+  - awesome-pages
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/gsh9864/daiyu-us-news

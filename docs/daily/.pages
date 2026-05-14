@@ -1,0 +1,7 @@
+title: 每日新聞
+order:
+  - index.md
+  - ...
+order_by: filename
+sort_type: natural
+order: desc

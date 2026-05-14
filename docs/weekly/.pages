@@ -1,0 +1,7 @@
+title: 每週摘要
+order:
+  - index.md
+  - ...
+order_by: filename
+sort_type: natural
+order: desc

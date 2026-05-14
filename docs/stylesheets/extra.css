@@ -1,0 +1,32 @@
+/* 中文行高 + 字距 */
+.md-typeset {
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+/* 表格在手機上能 scroll */
+.md-typeset__table {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* 表格細節 */
+.md-typeset table:not([class]) {
+  font-size: 0.85rem;
+}
+
+/* 連結底線淡一點，視覺乾淨 */
+.md-typeset a {
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.2s;
+}
+.md-typeset a:hover {
+  border-bottom-color: currentColor;
+}
+
+/* 行動版 padding */
+@media screen and (max-width: 768px) {
+  .md-typeset {
+    font-size: 0.85rem;
+  }
+}
