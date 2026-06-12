@@ -1,0 +1,97 @@
+name: Notify Telegram on news update
+
+# 雲端 routine 寫 GitHub 沒問題，但連不到 api.telegram.org（egress 被擋）。
+# 改由 GitHub Actions 在 daily/weekly md 推上來時代發 Telegram 通知。
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/daily/*.md'
+      - 'docs/weekly/*.md'
+  workflow_dispatch:
+    inputs:
+      file:
+        description: 'md file to notify about, e.g. docs/daily/2026-06-12.md'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Collect changed news files
+        id: files
+        env:
+          DISPATCH_FILE: ${{ inputs.file }}
+        run: |
+          if [ -n "$DISPATCH_FILE" ]; then
+            FILES="$DISPATCH_FILE"
+          else
+            FILES=$(git diff --name-only HEAD^ HEAD -- 'docs/daily/*.md' 'docs/weekly/*.md')
+          fi
+          {
+            echo "files<<EOF"
+            echo "$FILES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send Telegram notification
+        if: steps.files.outputs.files != ''
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          FILES: ${{ steps.files.outputs.files }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, re, json, sys, urllib.request
+
+          token = os.environ['TG_TOKEN']
+          chat = os.environ['TG_CHAT_ID']
+          files = [f.strip() for f in os.environ['FILES'].splitlines() if f.strip()]
+
+          ok_all = True
+          for f in files:
+              if not os.path.exists(f):
+                  continue  # deleted in this push
+              base = os.path.basename(f)[:-3]
+              kind = 'daily' if '/daily/' in f else 'weekly'
+              url = f"https://gsh9864.github.io/daiyu-us-news/{kind}/{base}/"
+              text = open(f, encoding='utf-8').read()
+              m = re.search(r'^#\s+(.+?)\s*$', text, re.M)
+              title = m.group(1) if m else base
+              # routine 之後若在 md 裡放「> 今日重點：…」或「> 本週重點：…」會被抓進通知
+              hm = re.search(r'^(?:>\s*)?(?:今日重點|本週重點)[:：]\s*(.+?)\s*$', text, re.M)
+              icon = '📊' if kind == 'daily' else '📰'
+              lines = [f"{icon} {title}"]
+              if hm:
+                  lines.append(f"🔍 {hm.group(1)}")
+              lines.append(f"👉 {url}")
+              payload = json.dumps({
+                  "chat_id": chat,
+                  "text": "\n".join(lines),
+                  "disable_web_page_preview": False,
+              }).encode('utf-8')
+              req = urllib.request.Request(
+                  f"https://api.telegram.org/bot{token}/sendMessage",
+                  data=payload,
+                  headers={"Content-Type": "application/json; charset=utf-8"},
+              )
+              try:
+                  resp = json.loads(urllib.request.urlopen(req, timeout=30).read().decode())
+                  print(f, '->', 'ok' if resp.get('ok') else resp)
+                  ok_all = ok_all and bool(resp.get('ok'))
+              except Exception as e:
+                  print(f, '-> ERROR:', type(e).__name__, e)
+                  ok_all = False
+
+          sys.exit(0 if ok_all else 1)
+          PYEOF
