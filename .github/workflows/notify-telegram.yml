@@ -53,9 +53,13 @@ jobs:
         run: |
           python3 - <<'PYEOF'
           import os, re, json, sys, urllib.request
+          sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-          token = os.environ['TG_TOKEN']
-          chat = os.environ['TG_CHAT_ID']
+          def clean(s):  # strip whitespace and UTF-8 BOM that PS pipes can inject into secrets
+              return s.strip().lstrip(chr(0xFEFF))
+
+          token = clean(os.environ['TG_TOKEN'])
+          chat = clean(os.environ['TG_CHAT_ID'])
           files = [f.strip() for f in os.environ['FILES'].splitlines() if f.strip()]
 
           ok_all = True
@@ -65,7 +69,7 @@ jobs:
               base = os.path.basename(f)[:-3]
               kind = 'daily' if '/daily/' in f else 'weekly'
               url = f"https://gsh9864.github.io/daiyu-us-news/{kind}/{base}/"
-              text = open(f, encoding='utf-8').read()
+              text = open(f, encoding='utf-8-sig').read()
               m = re.search(r'^#\s+(.+?)\s*$', text, re.M)
               title = m.group(1) if m else base
               # routine 之後若在 md 裡放「> 今日重點：…」或「> 本週重點：…」會被抓進通知
