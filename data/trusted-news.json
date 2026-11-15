@@ -1,0 +1,24 @@
+{
+  "說明": "經查證、可信度 90% 以上的新聞連結庫。分數是依來源等級打的，不是精確機率。新增時只收 91% 以上的來源，並在 verified 寫查證日期。",
+  "評分標準": {
+    "99": "官方一手文件：SEC.gov 申報、公司投資人關係正式公告",
+    "95": "頂級通訊社與財經媒體：Reuters、AP、Bloomberg、WSJ、FT、CNBC、中央社",
+    "92": "主流大報與科技媒體：Washington Post、New York Times、CNN、Fortune、TechCrunch、Axios、Barron's",
+    "不收（85-90）": "財經資料與評論站：Yahoo Finance、Investing.com、MarketBeat、StockAnalysis、Motley Fool、Benzinga、Seeking Alpha、Kiplinger、TheStreet、Space.com",
+    "不收（70-80）": "部落格、聚合站、預測市場、維基百科、內容農場"
+  },
+  "updated": "2026-11-15",
+  "news": [
+    {"symbol": "NVDA", "date": "2026-11-12", "title": "Nvidia 8-K：黃仁勳辭任執行長，Colette Kress 暫代", "source": "SEC.gov", "credibility": 99, "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000082/nvidiaannouncesceotransiti.htm", "verified": "2026-11-15"},
+    {"symbol": "NVDA", "date": "2026-11-12", "title": "馬斯克：能聘請黃仁勳是一種榮幸", "source": "CNBC", "credibility": 95, "url": "https://www.cnbc.com/2026/11/12/elon-musk-jensen-huang-nvidia-tesla.html", "verified": "2026-11-15"},
+    {"symbol": "NVDA", "date": "2026-11-12", "title": "Elon Musk Says It Would Be an Honor to Hire Nvidia's Huang", "source": "Bloomberg", "credibility": 95, "url": "https://www.bloomberg.com/news/articles/2026-11-12/elon-musk-says-it-would-be-an-honor-to-hire-nvidia-jensen-huang", "verified": "2026-11-15"},
+    {"symbol": "NVDA", "date": "2026-11-13", "title": "馬斯克加入要求黃仁勳復職的行列", "source": "Washington Post", "credibility": 92, "url": "https://www.washingtonpost.com/business/2026/11/13/musk-joins-calls-jensen-huang-be-reinstated-ceo-nvidia/", "verified": "2026-11-15"},
+    {"symbol": "NVDA", "date": "2026-11-13", "title": "黃仁勳離開 Nvidia，馬斯克稱聘他是榮幸", "source": "Fortune", "credibility": 92, "url": "https://fortune.com/2026/11/13/jensen-huang-nvidia-elon-musk-hire-honor/", "verified": "2026-11-15"},
+    {"symbol": "NVDA", "date": "2026-11-14", "title": "馬斯克等科技高層連署要求 Nvidia 讓黃仁勳復職", "source": "TechCrunch", "credibility": 92, "url": "https://techcrunch.com/2026/11/14/elon-musk-other-tech-execs-sign-petition-calling-on-nvidia-to-reinstate-jensen-huang/", "verified": "2026-11-15"},
+    {"symbol": "TSM", "date": "2026-10-15", "title": "台積電 2026 第三季財報與第四季指引", "source": "SEC.gov (6-K)", "credibility": 99, "url": "https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26e_withguidancexfinal.htm", "verified": "2026-11-15"},
+    {"symbol": "TSM", "date": "2026-10-15", "title": "台積電 2026 第三季法說簡報", "source": "SEC.gov (6-K)", "credibility": 99, "url": "https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000726/a3q26presentatione.htm", "verified": "2026-11-15"},
+    {"symbol": "SPCX", "date": "2026-10-20", "title": "SpaceX 2026 第三季財報即時報導（營收 +161%）", "source": "CNBC", "credibility": 95, "url": "https://www.cnbc.com/2026/10/20/spacex-spcx-earnings-live-updates-q3-2026html.html", "verified": "2026-11-15"},
+    {"symbol": "SPCX", "date": "2026-11-14", "title": "星艦第 15 次試飛：上節太空船首次被發射塔接住", "source": "CNN", "credibility": 92, "url": "https://www.cnn.com/2026/11/13/science/live-news/spacex-starship-flight-15-ship-catch", "verified": "2026-11-15"},
+    {"symbol": "MARKET", "date": "2026-11-12", "title": "美股盤勢：Nvidia 續跌拖累那斯達克", "source": "CNBC", "credibility": 95, "url": "https://www.cnbc.com/2026/11/12/stock-market-today-live-updates.html", "verified": "2026-11-15"}
+  ]
+}
